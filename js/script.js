@@ -8,44 +8,41 @@ let shoppingList = [
   { name: "meat", number: 1, buy: false },
 ];
 
-function sortShopingList() {
-  shoppingList.sort(function (a, b) {
+function sortShopingList(array) {
+  array.sort(function (a, b) {
     return a.buy - b.buy;
   });
   console.log("task #1.1");
   console.log(shoppingList);
 }
-// sortShopingList();
+// sortShopingList(shoppingList);
 
-function addPurchase() {
-  // let purchase = { name: "bread", number: 2, buy: true };
-  let purchase = { name: "fish", number: 2, buy: true };
+function addPurchase(purchase, array) {
   let x = 0;
-  shoppingList.forEach((item) => {
+  array.forEach((item) => {
     if (item.name === purchase.name) {
       x = 1;
       item.number += purchase.number;
     }
   });
   if (x === 0) {
-    shoppingList.push(purchase);
+    array.push(purchase);
   }
   console.log("task #2.1");
-  console.log(shoppingList);
+  console.log(array);
 }
-// addPurchase();
+addPurchase({ name: "fish", number: 2, buy: true }, shoppingList);
 
-function buyPurchase() {
-  let purchaseName = "bread";
-  shoppingList.forEach((item) => {
+function buyPurchase(purchaseName, array) {
+  array.forEach((item) => {
     if (purchaseName === item.name) {
       item.buy = true;
     }
   });
   console.log("task #1.3");
-  console.log(shoppingList);
+  console.log(array);
 }
-// buyPurchase();
+buyPurchase("bread", shoppingList);
 
 let shopReceipt = [
   { name: "bread", number: 2, price: 20 },
@@ -55,38 +52,38 @@ let shopReceipt = [
   { name: "meat", number: 7, price: 5 },
 ];
 
-function printShopReceipt() {
+function printShopReceipt(array) {
   console.log("task #2.1");
-  shopReceipt.forEach((item) => {
+  array.forEach((item) => {
     console.log(
       `name:${item.name} - number:${item.number} - price:${item.price}`
     );
   });
 }
-// printShopReceipt();
+printShopReceipt(shopReceipt);
 
-function calcTotalAmount() {
-  let resultShopReceipt = shopReceipt.reduce((sum, item) => sum + item.price, 0);
+function calcTotalAmount(array) {
+  let resultShopReceipt = array.reduce((sum, item) => sum + item.price, 0);
   console.log("task #2.2");
   console.log(`Total amount payable: ${resultShopReceipt}`);
   return resultShopReceipt;
 }
-// calcTotalAmount();
+calcTotalAmount(shopReceipt);
 
-function mostExpensivePurchaseInCheck() {
-  let resultSort = shopReceipt.sort(function (a, b) {
+function mostExpensivePurchaseInCheck(array) {
+  let resultSort = array.sort(function (a, b) {
     return b.price - a.price;
   });
   console.log("task #2.3");
   console.log(`name: ${resultSort[0].name} - price: ${resultSort[0].price}`);
 }
-// mostExpensivePurchaseInCheck();
+mostExpensivePurchaseInCheck(shopReceipt);
 
-function calcAverageCost() {
+function calcAverageCost(array) {
   console.log("task #2.4");
-  console.log((calcTotalAmount() / shopReceipt.length).toFixed(1));
+  console.log((calcTotalAmount(array) / array.length).toFixed(1));
 }
-// calcAverageCost();
+calcAverageCost(shopReceipt);
 
 let styleCSS = [
   { name: "color", value: "red" },
@@ -97,17 +94,17 @@ let styleCSS = [
   { name: "line-height", value: "32px" },
 ];
 
-function appStylesCSS() {
+function appStylesCSS(array) {
   console.log("task #3");
   let style;
   let result = "";
-  styleCSS.forEach((item) => {
+  array.forEach((item) => {
     style = item.name + ":" + item.value;
     result += style + ";";
-      });
-   document.write(`<p style=${result}> Hello</p>`);
+  });
+  document.write(`<p style=${result}> Hello</p>`);
 }
-// appStylesCSS();
+appStylesCSS(styleCSS);
 
 let auditoriumsAcademy = [
   { name: "hsfd", numberSeats: 20, faculty: "ABC" },
@@ -117,45 +114,62 @@ let auditoriumsAcademy = [
   { name: "nifo", numberSeats: 10, faculty: "PTY" },
 ];
 
-function showAllAuditoriums(){
+function showAllAuditoriums(array) {
   console.log("task #4.1");
-  auditoriumsAcademy.forEach((item) => {
+  array.forEach((item) => {
     console.log(`${item.name}`);
   });
 }
-// showAllAuditoriums();
+showAllAuditoriums(auditoriumsAcademy);
 
-function showAuditoriumsForFaculty() {
+function showAuditoriumsForFaculty(array, faculty) {
   console.log("task #4.2");
-  auditoriumsAcademy.forEach((item) => {
-    console.log(`${item.name} - ${item.faculty}`);
-  });
-}
-// showAuditoriumsForFaculty();
-
-function showAuditoriumsForGroup() {
-  console.log("task #4.3");
-  let groupStudent = { name: "group_1", numberStudent: 15, faculty: "ABC" };
-  auditoriumsAcademy.forEach((item, array) => {
-    if (groupStudent.numberStudent <= item.numberSeats) {
-      console.log(`${item.name} ${item.numberSeats} ${item.faculty}`);
+  let x = 0;
+  array.forEach((item) => {
+    if (item.faculty === faculty) {
+      x = 1;
+      console.log(`auditorium ${item.name} for the faculty ${item.faculty}`);
     }
   });
+  if (x === 0) {
+    console.log(`there are no classrooms for the faculty ${faculty}`);
+  }
 }
-// showAuditoriumsForGroup();
+showAuditoriumsForFaculty(auditoriumsAcademy, 'abc');
+showAuditoriumsForFaculty(auditoriumsAcademy, "ANP");
 
-function SortAuditoriumsNumberSeats() {
+function showAuditoriumsForGroup(array, obj) {
+  console.log("task #4.3");
+  let x = 0;
+  array.forEach((item) => {
+    if (obj.numberStudent <= item.numberSeats && obj.faculty === item.faculty) {
+      x = 1
+      console.log(`For a group of ${obj.numberStudent} students of Faculty ${obj.faculty}, the auditorium is suitable ${item.name}`);
+    }
+  });
+  if (x === 0) {
+    array.forEach((item) => {
+      if (obj.numberStudent <= item.numberSeats) {
+        console.log(`For a group of ${obj.numberStudent} students of Faculty ${obj.faculty}, the auditorium is suitable ${item.name}`);
+      }
+    });
+  }
+}
+showAuditoriumsForGroup(auditoriumsAcademy, { name: "group_1", numberStudent: 15, faculty: "ABC" });
+showAuditoriumsForGroup(auditoriumsAcademy, { name: "group_2", numberStudent: 12, faculty: "BDT" });
+showAuditoriumsForGroup(auditoriumsAcademy, { name: "group_3", numberStudent: 18, faculty: "GHV" });
+
+function SortAuditoriumsNumberSeats(array) {
   console.log("task #4.4");
-  let resultSortAuditoriums = auditoriumsAcademy.sort(function (a, b) {
+  let resultSortAuditoriums = array.sort(function (a, b) {
     return a.numberSeats - b.numberSeats;
   });
   console.log(resultSortAuditoriums);
-  // console.log(auditoriumsAcademy.sort((a, b) => a.numberSeats - b.numberSeats));
 }
-// SortAuditoriumsNumberSeats();
+SortAuditoriumsNumberSeats(auditoriumsAcademy);
 
-function SortAuditoriumsName() {
+function SortAuditoriumsName(array) {
   console.log("task #4.5");
-  console.log(auditoriumsAcademy.sort((a, b) => a.name.localeCompare(b.name)));
+  console.log(array.sort((a, b) => a.name.localeCompare(b.name)));
 }
-// SortAuditoriumsName();
+SortAuditoriumsName(auditoriumsAcademy);
